@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'รายละเอียดคำสั่งชื้อ '+${order.orderCode}"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div th:insert="fragments/headerLogin.html"></div>
+<div class="container d-block" style="margin-top: 30px;width: 100%">
+    <h1 th:text="'หมายเลขคำสั่งชื้อ: '+${order.orderCode}" style="margin-top: 30px"></h1>
+    <div class="row">
+        <div class="col-6 d-block">
+            <span th:text="'วันที่สั่งชื้อ: '+${order.formatDateTime()}"></span><br>
+            <th:block th:switch="${order.status}">
+                <span th:case="'1'">สถานะคำสั่งชื้อ: คำสั่งชื้อใหม่</span>
+                <span th:case="'2'">สถานะคำสั่งชื้อ: ยืนยันคำสั่งชื้อ</span>
+                <span th:case="'3'">สถานะคำสั่งชื้อ: จัดส่งสำเร็จ</span>
+                <span th:case="'4'">สถานะคำสั่งชื้อ: ยกเลิกคำสั่งชื้อ</span>
+                <span th:case="'5'">สถานะคำสั่งชื้อ: คืนสินค้า</span>
+            </th:block>
+        </div>
+        <div class="col-6 d-block">
+            <span th:text="'ชื่อลูกค้า: '+${order.customer.getFullName()}"></span><br>
+            <span th:text="'เบอร์โทรศัพท์: '+${order.customer.phoneNumber}"></span><br>
+            <span th:text="'ที่อยู่: '+${order.customer.getFullAddress()}"></span>
+        </div>
+    </div>
+    <div class="table-responsive" style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+        <table class="w-100 d-block d-md-table">
+            <thead>
+            <tr>
+                <th>รูปสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>ราคาสินค้า</th>
+                <th>จำนวนชิ้น</th>
+                <th>ราคารวม</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="od :${order.orderDetails}">
+                    <td><img th:src="${@environment.getProperty('aws.s3.url')}+${od.product.objectKey}" width="100" height="100"></td>
+                    <td th:text="${od.product.name}"></td>
+                    <td th:text="${od.product.price}+' บาท'"></td>
+                    <td th:text="${od.quantity}+' ชิ้น'"></td>
+                    <td th:text="${od.sumPrice}+' บาท'"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 d-block justify-content-center">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <span>จำนวนสินค้าทั้งหมด</span>
+                </div>
+                <div class="col-6 text-right">
+                    <span th:text="${order.totalQuantity}+' ชิ้น'"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-left">
+                    <span>ราคารวมสินค้า</span>
+                </div>
+                <div class="col-6 text-right">
+                    <span th:text="${order.totalPrice}+' บาท'"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-left">
+                    <span>ค่าส่ง</span>
+                </div>
+                <div class="col-6 text-right">
+                    <span th:text="${delivery}+ ' บาท'"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-left">
+                    <span>ราคารวมทั้งหมด</span>
+                </div>
+                <div class="col-6 text-right">
+                    <span th:text="${totalOrder}+' บาท'"></span>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

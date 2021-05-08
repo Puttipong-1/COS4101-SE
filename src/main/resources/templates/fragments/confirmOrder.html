@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        td{
+            text-align: center; !important;
+        }
+        th{
+            text-align: center; !important;
+        }
+        .column{
+            width: 25%; !important;
+        }
+        .flex-container{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div class="table-responsive" style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+    <table id="table" class="display w-100 d-block d-md-table">
+        <colgroup>
+            <col class="column">
+            <col class="column">
+            <col class="column">
+            <col class="column">
+        </colgroup>
+        <thead>
+        <th class="text-center">หมายเลขคำสั่งชื้อ</th>
+        <th class="text-center">วัน-เวลาที่สั่งชื้อ</th>
+        <th class="text-center">สถานะคำสั่งชื้อ</th>
+        <th class="text-center">#</th>
+        </thead>
+        <tbody>
+        <tr th:each="o :${orders}">
+            <td class="text-class"><span th:text="${o.orderCode}"></span></td>
+            <td class="text-class"><span th:text="${o.formatDateTime()}"></span></td>
+            <td class="text-class"><span class="text-info">ยืนยันคำสั่งชื้อ</span></td>
+            <td class="text-class">
+                <div class="flex-container">
+                    <form action="/admin/orders/delivery" method="post">
+                        <input type="hidden" th:name="orderId" th:value="${o.orderId}">
+                        <input type="submit" class="btn btn-success" value="จัดส่งสำเร็จ">
+                    </form>
+                    <a th:href="@{/admin/orders/detail/{code}(code=${o.orderCode})}" style="margin-left: 5px" class="btn btn-primary">ดูรายละเอียด</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

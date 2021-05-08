@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'ข้อมูลส่วนตัว: '+${emp.employeeCode}"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:include="fragments/headerManager.html"></div>
+<div class="container" style="width:100%;margin-top: 20px;">
+    <label><h2>ข้อมูลส่วนตัว</h2><hr></label>
+    <div class="form-group">
+        <label for="firstname">ชื่อ</label>
+        <input type="text" class="form-control" id="firstname" placeholder="First name"  th:value="${emp.firstname}"
+               disabled>
+    </div>
+    <div class="form-group">
+        <label for="lastname">นามสกุล</label>
+        <input type="text" class="form-control" id="lastname" placeholder="Last name"  th:value="${emp.lastname}"
+               disabled>
+    </div>
+    <div class="form-group">
+        <label for="number">เบอร์ที่ติดต่อได้</label>
+        <input type="text" class="form-control" id="number" placeholder="Phone number" th:value="${emp.phoneNumber}"
+               disabled>
+    </div>
+    <label><h3>ข้อมูลสำหรับเข้าสู่ระบบ</h3><hr></label>
+    <div class="form-group">
+        <label for="email">อีเมล</label>
+        <input type="email" class="form-control" id="email" placeholder="Email"  th:value="${emp.email}" disabled>
+    </div>
+</div>
+</body>
+</html>

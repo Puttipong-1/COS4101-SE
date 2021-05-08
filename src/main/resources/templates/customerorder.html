@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="คำสั่งชื้อ"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="fragments/headerLogin.html"></div>
+<div class="container d-block justify-content-center" style="margin-top: 30px;width: 100%">
+    <div class="table-responsive" style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+        <table id="table" class="display w-100 d-block d-md-table" style="width: 100%">
+            <colgroup>
+                <col class="w-20">
+                <col class="w-30">
+                <col class="w-30">
+                <col class="w-20">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="text-center">หมายเลขคำสั่งชื้อ</th>
+                <th class="text-center">วันที่สั่งชื้อ</th>
+                <th class="text-center">สถานะคำสั่งชื้อ</th>
+                <th class="text-center">#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="o :${orders}">
+                <td class="text-center" ><span th:text="${o.orderCode}"></span></td>
+                <td class="text-center"><span th:text="${o.formatDateTime()}"></span></td>
+                <td class="text-center">
+                    <th:block th:switch="${o.status}">
+                        <span th:case="'1'" class="text-center text-primary">คำสั่งชื้อใหม่</span>
+                        <span th:case="'2'" class="text-center text-info">ยืนยันคำสั่งชื้อ</span>
+                        <span th:case="'3'" class="text-center text-success">จัดส่งสำเร็จ</span>
+                        <span th:case="'4'" class="text-center text-danger">ยกเลิกคำสั่งชื้อ</span>
+                    </th:block>
+                </td>
+                <td class="text-center">
+                    <a th:href="@{/orders/{code}(code=${o.orderCode})}" class="btn btn-primary text-center">ดูรายละเอียด</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript" charset="utf8"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+<script>
+    $(function (){
+        $("#table").dataTable({
+            "info":     false,
+            "lengthChange":false,
+            "pageLength": 50,
+            "columnDefs":[
+                {orderable:true,"searchable": true,targets:0},
+                {orderable:false,"searchable": false,targets: 1},
+                {orderable:false,"searchable": false,targets: 2},
+                {orderable:false,"searchable": false,targets: 3}
+            ],
+            "order": [
+                [ 0, "desc" ]
+            ]
+        });
+    })
+</script>
+</body>
+</html>

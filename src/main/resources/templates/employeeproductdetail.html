@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.productCode}+': '+${product.name}"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div th:include="fragments/headerManager.html"></div>
+<div class="container" style="margin-top: 20px;width: 100%">
+    <div class="row">
+        <div class="d-block col-6">
+            <img th:src="${@environment.getProperty('aws.s3.url')}+${product.objectKey}" class="d-block mx-auto" id="image" width="300" height="300">
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="name">ชื่อสินค้า</label>
+                <input type="text" class="form-control" id="name"  th:value="${product.name}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="desc">รายละเอียดสินค้า</label>
+                <input input="text" class="form-control" id="desc" th:value="${product.description}" maxlength="50" disabled>
+            </div>
+            <div class="form-group">
+                <label for="price">ราคา</label>
+                <input type="number" class="form-control" id="price"  th:value="${product.price}" disabled>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

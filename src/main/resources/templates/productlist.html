@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>จัดการสินค้า</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style>
+        .toolbar{
+            float:right;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/headerManager.html"></div>
+<div class="container justify-content-center" style="margin-top: 20px;width: 100%">
+    <div class="table-responsive" style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+        <table id="table" class="display w-100 d-block d-md-table" style="width: 100%">
+            <colgroup>
+                <col class="w-25">
+                <col class="w-25">
+                <col class="w-25">
+                <col class="w-25">
+            </colgroup>
+            <thead>
+                <th class="text-center">รหัสสินค้า</th>
+                <th class="text-center">รูปสินค้า</th>
+                <th class="text-center">ชื่อสินค้า</th>
+                <th class="text-center">#</th>
+            </thead>
+            <tbody>
+                <tr th:each="p :${products}">
+                    <td class="text-center"><span th:text="${p.productCode}"></span></td>
+                    <td class="text-center"><img th:src="${@environment.getProperty('aws.s3.url')}+${p.objectKey}"  width="50" height="50"></td>
+                    <td class="text-center"><span th:text="${p.name}"></span></td>
+                    <td class="text-center">
+                        <a th:href="@{/admin/products/{code}(code=${p.productCode})}" class="btn btn-primary">ดูรายละเอียด</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript" charset="utf8"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable( {
+            "dom": '<"toolbar">frtip',
+            "info":     true,
+            "lengthChange":false,
+            "pageLength": 50,
+            "columnDefs":[
+                {orderable:true,"searchable": true,targets:0},
+                {orderable:false,"searchable": false,targets: 1},
+                {orderable:false,"searchable": false,targets: 2}
+            ]
+        } );
+        $("div.toolbar").html('<a href="/admin/products/add" class="btn btn-primary">เพิ่มสินค้า</a>');
+    } );
+</script>
+</body>
+</html>

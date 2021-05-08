@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/header.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c2f0807e7a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark d-flex flex-row justify-content-between w-100">
+    <a class="navbar-brand" href="/">Ap<i class="fas fa-utensils"></i>FreshFood.com</a>
+    <a class="navbar-brand navbar-center">เวลาทำการ 10.00 น. ถึง 20.00 น.</a>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a class="btn btn-link nav-link px-2" href="/profile">ข้อมูลส่วนตัว</a></li>
+        <li><a class="btn btn-link nav-link px-2" href="/makeorder">ยืนยันคำสั่งชื้อ</a></li>
+        <li><a class="btn btn-link nav-link px-2" href="/orders">คำสั่งชื้อ</a></li>
+        <li><form action="/logout" method="post">
+            <input type="submit" class="btn btn-link nav-link px-2" value="ออกจากระบบ">
+        </form></li>
+    </ul>
+</nav>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:if="${session.role==1}" th:insert="fragments/headerEmployee.html"></div>
+<div th:if="${session.role==2}" th:insert="fragments/headerManager.html"></div>
+<div class="container justify-content-center" style="margin-top: 20px;width: 100%">
+    <div th:if="${status==1}" th:insert="fragments/newOrder.html"></div>
+    <div th:if="${status==2}" th:insert="fragments/confirmOrder.html"></div>
+    <div th:if="${status==3}" th:insert="fragments/deliverOrder.html"></div>
+    <div th:if="${status==4}" th:insert="fragments/cancelOrder.html"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript" charset="utf8"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable( {
+            "info":     true,
+            "lengthChange":false,
+            "pageLength": 50,
+            "columnDefs":[
+                {orderable:true,"searchable": true,targets:0},
+                {orderable:false,"searchable": false,targets: 1},
+                {orderable:false,"searchable": false,targets: 2},
+                {orderable:false,"searchable": false,targets: 3}
+            ],
+            "order": [
+                [ 0, "desc" ]
+            ]
+        } );
+    } );
+</script>
+</body>
+</html>

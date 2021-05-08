@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="modal" class="modal">
+    <div class="modal-dialog animated">
+        <div class="modal-content">
+            <form class="form-horizontal" method="get">
+                <div class="modal-header">
+                    <strong class="text-danger">เกิดข้อผิดพลาดในการอัพโหลดรูป</strong>
+                </div>
+                <div class="modal-body d-block">
+                    <img th:src="@{/img/cancel.png}" width="100" height="100" class="d-block mx-auto"><br>
+                    <span class="d-block text-center" id="modal-text"></span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

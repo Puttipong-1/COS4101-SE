@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>สินค้า</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div th:insert="fragments/headerLogin.html"></div>
+<div class="container">
+<div class="row" style="margin-top: 50px">
+    <div class="col-6 d-flex justify-content-center" >
+        <img th:src="${@environment.getProperty('aws.s3.url')}+${product.objectKey}" width="300" height="300">
+    </div>
+    <div class="col-6">
+        <span th:text="'ชื่อสินค้า: '+${product.name}"></span><br>
+        <span th:text="'รายเอียดสินค้า: '+${product.description}"></span><br>
+        <span th:text="'ราคาต่อหน่วย: '+${product.price}+' บาท'"></span><br>
+        <form action="/addcart" th:object="${product}" method="post" class="form-inline"><br>
+            <div class="input-group mr-2">
+                <input th:name="product" th:field="*{productId}" th:value="${product.productId}" type="hidden">
+                <input th:name="product" th:field="*{price}" th:value="${product.price}" type="hidden">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon">จำนวน</span>
+                </div>
+                <input type="number" class="form-control mr-2" th:name="quantity" id="quantity" aria-describedby="addon" min="1" max="99" required>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="return checkTime()">เพิ่มลงตะกร้าสินค้า</button>
+        </form>
+    </div>
+</div>
+</div>
+<div th:include="fragments/modaltime.html"></div>
+<script src="https://unpkg.com/spacetime"></script>
+<script type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js"></script>
+<script th:src="@{/js/validate.js}" type="text/javascript"></script>
+</body>
+</html>

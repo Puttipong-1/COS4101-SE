@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <title>ยืนยันการสมัครสมาชิก</title>
+    <style>
+        html,body{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/headerNotLogin.html" class="h-25"></div>
+<div class="container h-75">
+    <div class="h-75 row justify-content-center align-items-center">
+        <div class="col-12">
+            <h1 th:text="${msg}" class="text-center"></h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

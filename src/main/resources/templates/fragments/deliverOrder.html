@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>รายการคำสั่งชื้อที่จัดส่งสำเร็จ</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <style>
+        td{
+            text-align: center; !important;
+        }
+        th{
+            text-align: center; !important;
+        }
+    </style>
+</head>
+<body>
+<div class="table-responsive" style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+    <table id="table" class="display w-100 d-block d-md-table">
+        <colgroup>
+            <col class="w-25">
+            <col class="w-25">
+            <col class="w-25">
+            <col class="w-25">
+        </colgroup>
+        <thead>
+        <th class="text-center">หมายเลขคำสั่งชื้อ</th>
+        <th class="text-center">วัน-เวลาที่สั่งชื้อ</th>
+        <th class="text-center">สถานะคำสั่งชื้อ</th>
+        <th class="text-center">#</th>
+        </thead>
+        <tbody>
+        <tr th:each="o :${orders}">
+            <td class="text-class"><span th:text="${o.orderCode}"></span></td>
+            <td class="text-class"><span th:text="${o.formatDateTime()}"></span></td>
+            <td class="text-class"><span class="text-success">จัดส่งสำเร็จ</span></td>
+            <td class="text-class">
+                <a th:href="@{/admin/orders/detail/{code}(code=${o.orderCode})}" class="btn btn-primary">ดูรายละเอียด</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

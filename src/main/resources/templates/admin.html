@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>หน้าหลักแอดมิน</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <style>
+        html,body{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${session.role==1}" th:insert="fragments/headerEmployee.html" class="h-25"></div>
+<div th:if="${session.role==2}" th:insert="fragments/headerManager.html"  class="h-25"></div>
+<div class="container h-75">
+    <div class="row">
+        <div class="col-6 d-block">
+            <h1 class="text-center">คำสั่งชื้อสินค้าของวันนี้</h1>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-center">สถานะคำสั่งชื้อ</th>
+                        <th scope="col"  class="text-center">จำนวนคำสั่งชื้อ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">คำสั่งชื้อใหม่</th>
+                        <td class="text-center"><span th:text="${today1}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">ยืนยันคำสั่งชื้อ</th>
+                        <td class="text-center"><span th:text="${today2}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">จัดส่งสำเร็จ</th>
+                        <td class="text-center"><span th:text="${today3}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">ยกเลิกคำสั่งชื้อ</th>
+                        <td class="text-center"><span th:text="${today4}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">รวมทั้งหมด</th>
+                        <td class="text-center"><span th:text="${today1+today2+today3+today4}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 d-block">
+            <h1 class="text-center">คำสั่งชื้อสินค้าทั้งหมด</h1>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-center">สถานะคำสั่งชื้อ</th>
+                        <th scope="col"  class="text-center">จำนวนคำสั่งชื้อ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">คำสั่งชื้อใหม่</th>
+                        <td class="text-center"><span th:text="${all1}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">ยืนยันคำสั่งชื้อ</th>
+                        <td class="text-center"><span th:text="${all2}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">จัดส่งสำเร็จ</th>
+                        <td class="text-center"><span th:text="${all3}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">ยกเลิกสินค้า</th>
+                        <td class="text-center"><span th:text="${all4}"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">รวมทั้งหมด</th>
+                        <td class="text-center"><span th:text="${all1+all2+all3+all4}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+</div>
+</body>
+</html>

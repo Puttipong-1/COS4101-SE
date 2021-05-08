@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'พิมพ์ใบออเดอร์: '+${order.orderCode}"></title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="margin-top: 20px;width: 100%">
+    <div class="row">
+        <div class="col-3"></div>
+            <div class="col-6 d-flex flex-column justify-content-center">
+                <div class="text-center">
+                    <img src="../static/img/company.png" class="text-center" width="100" height="100" th:src="@{/img/company.png}">
+                </div>
+            <span th:text="${company.name}" class="font-weight-bold text-center"></span>
+            <span th:text="'เลขประจำตัวผู้เสียภาษี '+${company.taxId}" class="text-center"></span>
+            <span th:text="${company.getFullAddress()}" class="text-center"></span>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-6 d-block">
+            <span class="font-weight-bold">Delivery Order</span>
+            <div>
+                <span class="font-weight-bold">คำสั่งชื้อที่  </span>
+                <span th:text="${order.orderCode}"></span>
+                <span class="font-weight-bold">  วันและเวลาที่สั่งชื้อ</span>
+                <span th:text="${order.formatDateTime()}"></span>
+            </div>
+            <span th:text="'ลูกค้าสำคัญ คุณ '+${order.customer.getFullName()}"></span><br>
+            <span th:text="'เบอร์ที่ติดต่อได้ '+${order.customer.phoneNumber}"></span><br>
+            <span th:text="'ที่อยู่ '+${order.customer.getFullAddress()}"></span><br>
+        </div>
+        <div class="col-6"></div>
+    </div>
+    <div class="row" style="margin-top:10px;margin-bottom: 5px">
+        <div class="col-3 text-center">
+            <span class="font-weight-bold">จำนวน</span>
+        </div>
+        <div class="col-6 text-center">
+            <span class="font-weight-bold">รายการอาหารที่สั่งชื้อ</span>
+        </div>
+        <div class="col-3 text-center">
+            <span class="font-weight-bold">ราคา</span>
+        </div>
+    </div>
+    <div th:each="od :${order.orderDetails}" class="row">
+        <div class="col-3 text-center">
+            <span th:text="${od.quantity}"></span>
+        </div>
+        <div class="col-6 text-center">
+            <span th:text="${od.product.name}"></span>
+        </div>
+        <div class="col-3 text-center">
+            <span th:text="${od.sumPrice}"></span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-center"></div>
+        <div class="col-3 text-center">
+            <span th:text="ค่าอาหารทั้งสิ้น"></span>
+        </div>
+        <div class="col-3 text-center">
+            <span th:text="${order.totalPrice}"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 text-center"></div>
+        <div class="col-3 text-center">
+            <span th:text="ค่าบริการส่ง"></span>
+        </div>
+        <div class="col-3 text-center">
+            <span th:text="${delivery}"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 text-center"></div>
+        <div class="col-3 text-center">
+            <span th:text="รวมเป็นราคาทั้งสิ้น"></span>
+        </div>
+        <div class="col-3 text-center">
+            <span th:text="${orderSum}"></span>
+        </div>
+    </div>
+    <hr style="border-top: dashed 1px;" />
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2"><span>(ส่วนรับเงิน)</span></div>
+    </div>
+    <div class="row">
+        <div class="col-6 d-block">
+            <h5>ข้อมูลคำสั่งชื้อ</h5>
+            <div>
+                <span class="font-weight-bold"> หมายคำสั่งชื้อ</span>
+                <span th:text="${order.orderCode}"> หมายคำสั่งชื้อ</span>
+            </div>
+            <div>
+                <span class="font-weight-bold"> วันและเวลาที่สั่งชื้อ</span>
+                <span th:text="${order.formatDateTime()}"></span>
+            </div>
+        </div>
+        <div class="col-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 d-block">
+            <div>
+                <span class="font-weight-bold">ลงชื่อ </span>
+                <span>.............................................</span>
+                <span class="font-weight-bold"> (ผู้รับเงิน)</span>
+            </div>
+            <div>
+                <span class="font-weight-bold">ลงชื่อ </span>
+                <span>.............................................</span>
+                <span class="font-weight-bold"> (ลูกค้า)</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

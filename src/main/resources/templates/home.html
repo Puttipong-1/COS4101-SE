@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Apfreshfood.com</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c2f0807e7a.js" crossorigin="anonymous"></script>
+    <style>
+        .display{
+            margin-top: 10px;
+        }
+        table{
+            width:auto;
+            height: 100%;
+            border-collapse: collapse;
+        }
+        td{
+            width: 33%;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${session.customer!=null}" th:insert="fragments/headerLogin.html"></div>
+<div th:unless="${session.customer!=null}" th:insert="fragments/headerNotLogin.html"></div>
+<div class="container d-flex justify-content-center" style="width: 100%;">
+    <div class="table-responsive " style="overflow-y: hidden !important;overflow-x: hidden !important; width: 100%; ">
+        <table id="table" class="display" style="margin-top: 30px;width: 100%; ">
+            <colgroup>
+                <col style="width: 100%;">
+            </colgroup>
+            <thead>
+                <th></th>
+            </thead>
+            <tbody>
+            <tr th:each="p :${products}">
+                <td class="text-center">
+                    <div class="d-flex flex-row justify-content-between">
+                        <div th:each="c :${p}" style="width:33%">
+                            <img th:src="${@environment.getProperty('aws.s3.url')}+${c.objectKey}" width="150" height="150"><br>
+                            <span th:text="${c.name}"></span><br>
+                            <span th:text="${c.description}"></span><br>
+                            <a th:href="@{/product/{code}(code=${c.productCode})}" class="btn btn-danger btn-block" th:text="${c.price}+' บาท'"></a><br>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</table>
+</div>
+<div th:include="fragments/modaltime.html"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript" charset="utf8"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+<script>
+    $(function (){
+        $("#table").dataTable({
+            "info":false,
+            "lengthChange":false ,
+            "paging":true,
+            "ordering":false,
+            "searching":false,
+            "pageLength":3,
+            "autoWidth":false,
+            "scrollY":false,
+            "scrollX":false,
+        });
+    })
+</script>
+</body>
+</html>
